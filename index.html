@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#080b18">
+<title>ClipCue — Your content, ready to create</title>
+<style>
+:root{--bg:#080b16;--panel:#0e1428;--panel2:#111a33;--line:#202b50;--purple:#8157ff;--purple2:#6339ed;--text:#f4f5ff;--muted:#9ba8cc;--green:#23d7a0;--radius:14px}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 40% -20%,#1a1d45 0,transparent 50%),var(--bg);color:var(--text);font:14px/1.5 Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}
+button,input,select,textarea{font:inherit}button{cursor:pointer}
+.topbar{height:70px;display:flex;align-items:center;gap:14px;padding:0 24px;border-bottom:1px solid var(--line);background:#0a0e1df0;position:sticky;top:0;z-index:5}
+.logo{display:flex;align-items:center;gap:10px;font-size:22px;font-weight:800;letter-spacing:-.7px}.logo-mark{height:38px;width:38px;border-radius:11px;background:linear-gradient(140deg,#a48aff,#6034f3);display:grid;place-items:center;font-size:21px;box-shadow:0 6px 22px #7048ff40}
+.tagline{color:var(--muted);margin-left:18px}.top-actions{margin-left:auto;display:flex;gap:10px}.small-btn,.copy-btn,.ghost-btn{background:#121a34;border:1px solid #2b3760;color:#dfe4ff;border-radius:9px;padding:9px 12px}.small-btn:hover,.copy-btn:hover,.ghost-btn:hover{border-color:#8565ff;background:#1a2142}
+.app{display:grid;grid-template-columns:160px minmax(280px,370px) minmax(450px,1fr);gap:16px;max-width:1800px;margin:auto;padding:18px}
+.sidebar{display:flex;flex-direction:column;gap:8px;min-height:calc(100vh - 110px)}.nav{display:flex;gap:10px;align-items:center;text-align:left;border:0;background:transparent;color:var(--muted);padding:12px;border-radius:10px}.nav.active,.nav:hover{background:linear-gradient(100deg,#38217f,#241856);color:white}.side-note{margin-top:auto;border:1px solid #2a3767;background:linear-gradient(145deg,#151d3b,#0e1428);padding:15px;border-radius:12px;color:var(--muted);font-size:12px}.side-note strong{display:block;color:#c5b7ff;margin:8px 0}
+.panel{border:1px solid var(--line);background:linear-gradient(155deg,#10172d,#0c1224 65%);border-radius:var(--radius);overflow:hidden;box-shadow:0 12px 40px #00000012}.panel-head{padding:17px 18px;border-bottom:1px solid #1c2747}.panel-head h2{margin:0;font-size:16px}.panel-head p{margin:4px 0 0;color:var(--muted);font-size:12px}.form-body{padding:17px;display:flex;flex-direction:column;gap:16px}.field label{display:block;font-size:12px;font-weight:700;margin-bottom:7px;color:#dce2ff}.required{color:#b59aff}.field input,.field select,.field textarea{width:100%;border:1px solid #2a365e;background:#0b1123;color:var(--text);border-radius:9px;padding:11px 12px;outline:none}.field textarea{min-height:76px;resize:vertical}.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--purple);box-shadow:0 0 0 3px #8157ff20}.platforms{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px}.platform{padding:10px 3px;border:1px solid #28345c;background:#0c1328;color:#c7d0f2;border-radius:9px;font-size:10px;min-height:64px}.platform span{display:block;font-size:18px;margin-bottom:3px}.platform.selected{border-color:#8c68ff;background:#251956;box-shadow:inset 0 0 0 1px #8c68ff45;color:white}.two{display:grid;grid-template-columns:1fr 1fr;gap:10px}.advanced{border:1px solid #202b50;border-radius:9px;padding:11px 12px}.advanced summary{cursor:pointer;color:#d8def8;font-weight:600}.advanced .field{margin-top:14px}.generate{border:0;border-radius:10px;background:linear-gradient(100deg,#9564ff,#6439ec);color:white;font-weight:800;padding:14px;box-shadow:0 8px 22px #6b45f944}.generate:hover{filter:brightness(1.12);transform:translateY(-1px)}.fineprint{text-align:center;color:#7f8bb4;font-size:10px;margin-top:-8px}.tips{margin-top:12px;padding:16px}.tips h3{margin:0 0 10px;font-size:13px}.tips p{margin:7px 0;color:var(--muted);font-size:12px}
+.results-head{display:flex;align-items:center;gap:12px;padding:16px 18px;border-bottom:1px solid #202b50}.spark{font-size:23px;color:#a68aff}.results-head h2{font-size:16px;margin:0}.results-head p{margin:3px 0 0;color:var(--muted);font-size:12px}.results-head .copy-all{margin-left:auto;white-space:nowrap;background:linear-gradient(100deg,#42219a,#5f37df);border:1px solid #805cff;border-radius:9px;color:#fff;font-weight:700;padding:10px 12px}
+.results-body{padding:10px;display:flex;flex-direction:column;gap:10px}.result-card{border:1px solid #202c50;background:linear-gradient(145deg,#10182e,#0d1428);border-radius:12px;padding:13px 14px;min-width:0}.card-head{display:flex;align-items:center;gap:9px;margin-bottom:9px}.card-icon{width:29px;height:29px;border-radius:9px;background:#27205b;color:#b9a7ff;display:grid;place-items:center;font-size:16px;flex-shrink:0}.card-title{font-weight:750;font-size:12px}.recommended{font-size:10px;color:#8bf3d1;background:#0d403c;border-radius:20px;padding:3px 8px;margin-left:3px}.copy-btn{margin-left:auto;padding:6px 9px;font-size:11px;flex-shrink:0}.content{color:#d6def9;font-size:12px;white-space:pre-wrap;overflow-wrap:anywhere}.content strong{color:white}.main-title{font-size:16px;font-weight:800;letter-spacing:-.2px}.alternatives{color:#aeb9dc;margin-top:8px}.script-row{display:grid;grid-template-columns:56px 1fr;gap:10px;padding:5px 0;border-bottom:1px solid #1a2543}.script-row:last-child{border:0}.time{color:#b9a4ff;font-size:11px;font-weight:700}.table-wrap{overflow-x:auto}table{width:100%;border-collapse:collapse;font-size:10px;min-width:450px}th,td{text-align:left;padding:7px 6px;border-bottom:1px solid #202b4a}th{color:#aeb8dc;font-weight:700}td{color:#d1d9f4}.mini-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}.mini-grid .result-card{padding:12px}.mini-grid .card-head{gap:6px}.mini-grid .card-title{font-size:11px}.mini-grid .copy-btn{padding:5px 7px}.mini-grid .content{font-size:11px}.empty{color:var(--muted);text-align:center;padding:30px 10px}.toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);background:#172342;border:1px solid #4b5c8c;color:white;padding:10px 16px;border-radius:10px;box-shadow:0 8px 30px #0008;display:none;z-index:10}.toast.show{display:block}.loading{opacity:.7;pointer-events:none}
+@media(max-width:1100px){.app{grid-template-columns:130px minmax(260px,340px) minmax(400px,1fr);gap:10px;padding:10px}.tagline{display:none}.mini-grid{grid-template-columns:1fr}.sidebar{font-size:12px}}
+@media(max-width:820px){.app{grid-template-columns:1fr;padding:12px}.sidebar{min-height:0;display:grid;grid-template-columns:repeat(4,1fr);gap:6px}.nav{justify-content:center;padding:10px 4px;font-size:11px}.side-note{display:none}.generator-col{order:1}.results-col{order:2}.platforms{grid-template-columns:repeat(5,minmax(0,1fr))}.mini-grid{grid-template-columns:1fr 1fr 1fr}.topbar{padding:0 13px}.top-actions .small-btn:first-child{display:none}}
+@media(max-width:520px){.topbar{height:60px}.logo{font-size:19px}.logo-mark{height:34px;width:34px}.top-actions .small-btn{padding:8px}.app{padding:8px}.panel-head,.form-body{padding:13px}.platform{font-size:9px;min-height:58px}.platform span{font-size:16px}.two{grid-template-columns:1fr 1fr}.results-head{padding:13px;flex-wrap:wrap}.results-head .copy-all{margin-left:0;width:100%}.mini-grid{grid-template-columns:1fr}.mini-grid .content{font-size:12px}.result-card{padding:11px}.main-title{font-size:14px}}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="logo"><div class="logo-mark">▶</div>ClipCue</div>
+  <div class="tagline">Your content, ready to create.</div>
+  <div class="top-actions"><button class="small-btn" id="themeBtn" title="Toggle theme">☾</button><button class="small-btn" id="savedBtn">▣ Saved Projects</button><button class="small-btn" id="profileBtn">●</button></div>
+</header>
+<div class="app">
+  <aside class="sidebar">
+    <button class="nav active" data-view="create">⌂ &nbsp; Create</button>
+    <button class="nav" data-view="saved">▣ &nbsp; Saved Projects</button>
+    <button class="nav" data-view="favorites">☆ &nbsp; Favorites</button>
+    <button class="nav" data-view="history">◷ &nbsp; History</button>
+    <div class="side-note">✦<strong>Turn ideas into videos</strong>Create platform-specific content, scripts, captions, hashtags and more — all in one place.</div>
+  </aside>
+  <main class="generator-col">
+    <section class="panel">
+      <div class="panel-head"><h2>Create New Content</h2><p>Fill in the details below and let AI do the magic.</p></div>
+      <form id="creatorForm" class="form-body">
+        <div class="field"><label for="topic">Video topic or idea <span class="required">*</span></label><textarea id="topic" maxlength="500" placeholder="e.g. 5 AI tools that save you time..." required></textarea><div style="text-align:right;color:#7380a9;font-size:10px"><span id="count">0</span>/500</div></div>
+        <div class="field"><label>Platform <span class="required">*</span></label>
+          <div class="platforms" id="platforms">
+            <button type="button" class="platform selected" data-platform="TikTok"><span>♪</span>TikTok</button>
+            <button type="button" class="platform" data-platform="Instagram Reels"><span>◎</span>Instagram<br>Reels</button>
+            <button type="button" class="platform" data-platform="Facebook Reels"><span>f</span>Facebook<br>Reels</button>
+            <button type="button" class="platform" data-platform="YouTube Shorts"><span>▶</span>YouTube<br>Shorts</button>
+            <button type="button" class="platform" data-platform="YouTube (Long Form)"><span>▰</span>YouTube<br>(Long)</button>
+          </div>
+        </div>
+        <div class="field"><label for="language">Language <span class="required">*</span></label><select id="language"><option>Banglish</option><option>বাংলা</option><option>English</option></select></div>
+        <div class="field"><label for="mood">Mood / Tone <span class="required">*</span></label><select id="mood"><option>Educational</option><option>Funny</option><option>Emotional</option><option>Inspirational</option><option>Storytelling</option><option>Cinematic</option><option>Suspenseful</option><option>Professional</option></select></div>
+        <div class="two">
+          <div class="field"><label for="duration">Video duration</label><select id="duration"><option>15–30 seconds</option><option>30–60 seconds</option><option>1–3 minutes</option><option>5–10 minutes</option><option>10–20 minutes</option></select></div>
+          <div class="field"><label for="audience">Target audience</label><select id="audience"><option>General audience</option><option>Students / Young Creators</option><option>Business owners</option><option>Beginners</option><option>Professionals</option></select></div>
+        </div>
+        <details class="advanced"><summary>⚙ Advanced Options</summary>
+          <div class="field"><label for="style">Content style</label><select id="style"><option>Practical tips</option><option>Story-driven</option><option>Listicle</option><option>Myth vs fact</option><option>Problem and solution</option><option>Personal experience</option></select></div>
+          <div class="field"><label for="cta">Call to action</label><select id="cta"><option>Save and follow</option><option>Comment below</option><option>Subscribe</option><option>Share with a friend</option><option>No CTA</option></select></div>
+        </details>
+        <button type="submit" class="generate" id="generateBtn">✦ &nbsp; Generate Content &nbsp; →</button>
+        <div class="fineprint">Demo mode · Connect a secure AI backend for live generation.</div>
+      </form>
+    </section>
+    <section class="panel tips"><h3>♧ &nbsp; Quick Tips</h3><p>✓ Be specific with your topic for better results</p><p>✓ Choose the right platform and format</p><p>✓ Use a clear mood and tone</p><p>✓ More details = more relevant content</p></section>
+  </main>
+  <section class="panel results-col">
+    <div class="results-head"><div class="spark">✦</div><div><h2 id="resultsTitle">Generated Content</h2><p id="resultsSubtitle">Your content package will appear here.</p></div><button class="copy-all" id="copyAll">▢ Copy Entire Package</button></div>
+    <div class="results-body" id="results">
+      <div class="empty">✦<br><strong>Your next video starts here.</strong><br>Enter a topic and click Generate Content to preview your package.</div>
+    </div>
+  </section>
+</div>
+<div class="toast" id="toast" role="status"></div>
+<script>
+const $=s=>document.querySelector(s); const $$=s=>document.querySelectorAll(s);
+let selectedPlatform='TikTok', lastPackage=null, saved=[], favorites=[], history=[];
+try{saved=JSON.parse(localStorage.getItem('clipcue_saved')||'[]');favorites=JSON.parse(localStorage.getItem('clipcue_fav')||'[]');history=JSON.parse(localStorage.getItem('clipcue_history')||'[]')}catch(e){}
+$('#topic').addEventListener('input',()=>$('#count').textContent=$('#topic').value.length);
+$$('.platform').forEach(b=>b.addEventListener('click',()=>{$$('.platform').forEach(x=>x.classList.remove('selected'));b.classList.add('selected');selectedPlatform=b.dataset.platform}));
+function toast(msg){const t=$('#toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2200)}
+async function copyText(text){try{await navigator.clipboard.writeText(text);toast('Copied to clipboard!')}catch(e){const ta=document.createElement('textarea');ta.value=text;document.body.appendChild(ta);ta.select();try{document.execCommand('copy');toast('Copied to clipboard!')}catch(err){toast('Copy failed — please select and copy manually')}ta.remove()}}
+function card(id,icon,title,body,extra=''){return `<article class="result-card" data-section="${id}"><div class="card-head"><div class="card-icon">${icon}</div><div class="card-title">${title}</div>${extra}<button class="copy-btn" data-copy="${id}">▢ Copy</button></div><div class="content" id="content-${id}">${body}</div></article>`}
+function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function generatePackage(topic,platform,language,mood,duration,audience,style,cta){
+ const short=platform!=='YouTube (Long Form)', bang=language==='বাংলা', mixed=language==='Banglish';
+ const lead=bang?'একটা ছোট পরিবর্তন আপনার ফলাফল বদলে দিতে পারে।':mixed?'Ekta chhoto change apnar result onek better korte pare.':'One small change can make a bigger difference than you think.';
+ const hook=bang?`একটু থামুন! ${topic} নিয়ে এই বিষয়টা আপনি মিস করছেন।`:mixed?`Ek second! ${topic} niye ei tip-ta miss korben na.`:`Stop scrolling! Here's what most people miss about ${topic}.`;
+ const title=short?`${topic}: ${mood==='Funny'?'You Need to See This':'What You Should Know'}`:`${topic} — A Practical Guide for ${audience}`;
+ const title2=[`The Truth About ${topic}`,`How to Get Better at ${topic}`,` ${topic}: Simple Tips That Actually Help`];
+ const script=short?[
+  ['0–3 sec',hook],
+  ['3–8 sec',bang?'অনেকে এই অংশটা এড়িয়ে যান, কিন্তু এখানেই আসল বিষয়।':mixed?'Onek-e ei part-ta skip kore, kintu ekhanei main point.':'Most people overlook this part, but it is where the real value begins.'],
+  ['8–18 sec',bang?`${topic} নিয়ে একটি সহজ, বাস্তব উদাহরণ দেখান।`:mixed?`${topic} niye ekta simple real-life example dekhan.`:`Show one simple, relatable example related to ${topic}.`],
+  ['18–25 sec',bang?'মূল টিপটি দেখান এবং কীভাবে কাজে লাগাতে হবে বলুন।':mixed?'Main tip-ta dekhan, ar kivabe apply korte hoy bolun.':'Share the key tip and demonstrate how to apply it.'],
+  ['25–30 sec',cta==='No CTA'?'End with a concise takeaway.':`CTA: ${cta}.`]
+ ]:[['0:00–0:20','Open with a relatable problem and promise a clear outcome.'],['0:20–1:00',`Introduce the context and why ${topic} matters to ${audience}.`],['1:00–3:00','Explain the main ideas in clear sections with examples.'],['3:00–4:00','Demonstrate a practical example or step-by-step process.'],['Ending',cta==='No CTA'?'Close with the key takeaway.':`Summarize the takeaway and invite viewers to: ${cta}.`]];
+ const caption=bang?`${topic} নিয়ে এই টিপসগুলো কাজে লাগতে পারে। পরে দেখার জন্য সেভ করে রাখুন!`:mixed?`${topic} niye useful tips! Pore try korar jonno save kore rakhun. ${cta==='No CTA'?'':cta+'!'}`:`A practical look at ${topic}. Save this for later and put one idea into action today. ${cta==='No CTA'?'':cta+'!'}`;
+ const tags=['#ContentCreation','#CreatorTips','#LearnSomethingNew','#VideoTips',platform.includes('YouTube')?'#YouTubeShorts':'#Reels'];
+ const cues=[['0–3 sec · Hook','Cinematic impact + short riser','100–120','cinematic impact, short riser'],['3–8 sec · Setup','Minimal electronic beat','95–110','minimal tech beat, subtle pulse'],['8–18 sec · Main point','Upbeat rhythmic groove','100–120','upbeat background, light percussion'],['18–25 sec · Payoff','Motivational synth / warm beat','105–120','motivational synth, positive groove'],['Ending · CTA','Short resolving outro sting','90–110','clean outro sting, soft hit']];
+ return {platform,language,mood,duration,topic,title,title2,hook,idea:`${style} angle: explain “${topic}” for ${audience}. Start with a familiar problem, give one concrete example, then leave viewers with an actionable takeaway.`,script,caption,tags,cues,thumb:`${topic.toUpperCase()}\nKeep it short, high contrast, and easy to read on mobile.`};
+}
+function renderPackage(p){
+ lastPackage=p; $('#resultsTitle').textContent='Generated Content';$('#resultsSubtitle').textContent=`${p.platform} · ${p.language} · ${p.mood}`;
+ const titleBody=`<div class="main-title">${escapeHtml(p.title)}</div><div class="alternatives"><strong>Alternative titles</strong><br>${p.title2.map((t,i)=>`${i+1}. ${escapeHtml(t.trim())}`).join('<br>')}</div>`;
+ const hookBody=escapeHtml(p.hook);
+ const ideaBody=escapeHtml(p.idea);
+ const scriptBody=p.script.map(x=>`<div class="script-row"><div class="time">${escapeHtml(x[0])}</div><div>${escapeHtml(x[1])}</div></div>`).join('');
+ const sceneBody=`<div class="table-wrap"><table><thead><tr><th>Time</th><th>Visual / footage</th><th>On-screen text</th><th>BGM / SFX</th></tr></thead><tbody>${p.script.map((x,i)=>`<tr><td>${escapeHtml(x[0])}</td><td>${['Close-up / attention grab','Presenter / context','Demonstration / example','Key tip / payoff','End card / CTA'][i%5]}</td><td>${escapeHtml(i===0?p.hook:i===p.script.length-1?p.cta||'Key takeaway':p.topic)}</td><td>${escapeHtml(p.cues[i%p.cues.length][1])}</td></tr>`).join('')}</tbody></table></div>`;
+ const caption=escapeHtml(p.caption), hashtags=escapeHtml(p.tags.join(' '));
+ const bgm=p.cues.map(c=>`${c[0]}\n${c[1]} · ${c[2]} BPM\nSearch: ${c[3]}`).join('\n\n');
+ const thumb=escapeHtml(p.thumb);
+ $('#results').innerHTML=
+ card('title','🏆','01. Recommended Title',titleBody,'<span class="recommended">✦ Recommended</span>')+
+ card('hook','ϟ','02. First 3-Second Hook',hookBody)+
+ card('idea','◉','03. Video Idea and Angle',ideaBody)+
+ card('script','▤','04. Full Video Script',scriptBody)+
+ card('scenes','🎬','05. Scene-by-Scene Breakdown',sceneBody)+
+ `<div class="mini-grid">${card('caption','▤','06. Caption',caption)}${card('hashtags','#','07. Hashtags',hashtags)}${card('bgm','♫','08. BGM Cue Sheet',escapeHtml(bgm))}</div>`+
+ card('thumbnail','▧','09. Thumbnail / Cover Text',thumb);
+ $$('#results [data-copy]').forEach(b=>b.addEventListener('click',()=>{const el=$('#content-'+b.dataset.copy);copyText(el.innerText)}));
+}
+$('#creatorForm').addEventListener('submit',e=>{e.preventDefault();const topic=$('#topic').value.trim();if(!topic){toast('Enter a video topic first.');return}
+ const btn=$('#generateBtn');btn.classList.add('loading');btn.textContent='Creating your package…';
+ setTimeout(()=>{const p=generatePackage(topic,selectedPlatform,$('#language').value,$('#mood').value,$('#duration').value,$('#audience').value,$('#style')?.value||'Practical tips',$('#cta')?.value||'Save and follow');renderPackage(p);history.unshift({...p,createdAt:new Date().toISOString()});history=history.slice(0,20);localStorage.setItem('clipcue_history',JSON.stringify(history));btn.classList.remove('loading');btn.innerHTML='✦ &nbsp; Generate Content &nbsp; →';toast('Demo content package created.')},350)
+});
+function fullText(p){return `CLIPCUE CONTENT PACKAGE\nPlatform: ${p.platform}\nLanguage: ${p.language}\nMood: ${p.mood}\n\n01. RECOMMENDED TITLE\n${p.title}\nAlternative titles:\n${p.title2.join('\n')}\n\n02. FIRST 3-SECOND HOOK\n${p.hook}\n\n03. VIDEO IDEA\n${p.idea}\n\n04. FULL VIDEO SCRIPT\n${p.script.map(x=>x.join(': ')).join('\n')}\n\n05. CAPTION\n${p.caption}\n\n06. HASHTAGS\n${p.tags.join(' ')}\n\n07. BGM CUE SHEET\n${p.cues.map(c=>`${c[0]} | ${c[1]} | ${c[2]} BPM | Search: ${c[3]}`).join('\n')}\n\n08. THUMBNAIL / COVER TEXT\n${p.thumb}`}
+$('#copyAll').addEventListener('click',()=>{if(!lastPackage){toast('Generate a package first.');return}copyText(fullText(lastPackage))});
+$('#savedBtn').addEventListener('click',()=>showLibrary('saved'));$('#profileBtn').addEventListener('click',()=>toast('Profile settings can be added later.'));
+$$('.nav').forEach(b=>b.addEventListener('click',()=>{if(b.dataset.view==='create'){$$('.nav').forEach(n=>n.classList.toggle('active',n===b));$('.generator-col').style.display='';$('.results-col').style.display='';return}showLibrary(b.dataset.view);$$('.nav').forEach(n=>n.classList.toggle('active',n===b))}));
+function showLibrary(view){$('.generator-col').style.display='none';$('.results-col').style.display='block';const items=view==='favorites'?favorites:view==='history'?history:saved;$('#resultsTitle').textContent=view==='favorites'?'Favorites':view==='history'?'Recent History':'Saved Projects';$('#resultsSubtitle').textContent='Stored in this browser on this device.';$('#copyAll').style.display='none';$('#results').innerHTML=items.length?items.map((p,i)=>`<article class="result-card"><div class="card-head"><div class="card-icon">▤</div><div class="card-title">${escapeHtml(p.title||p.topic||'Untitled project')}</div><button class="copy-btn" data-load="${i}">Open</button></div><div class="content">${escapeHtml(p.platform||'')} · ${escapeHtml(p.language||'')}</div><div style="display:flex;gap:8px;margin-top:10px"><button class="ghost-btn" data-fav="${i}">☆ Favorite</button><button class="ghost-btn" data-save="${i}">▣ Save</button></div></article>`).join(''):'<div class="empty">Nothing here yet. Generate content, then save or favorite it.</div>';
+ $$('[data-load]').forEach(b=>b.addEventListener('click',()=>{renderPackage(items[+b.dataset.load]);$('.generator-col').style.display='';$('#copyAll').style.display='';$$('.nav').forEach(n=>n.classList.toggle('active',n.dataset.view==='create'))}));
+ $$('[data-save]').forEach(b=>b.addEventListener('click',()=>{saved.unshift(items[+b.dataset.save]);localStorage.setItem('clipcue_saved',JSON.stringify(saved));toast('Saved project.');showLibrary('saved')}));
+ $$('[data-fav]').forEach(b=>b.addEventListener('click',()=>{favorites.unshift(items[+b.dataset.fav]);localStorage.setItem('clipcue_fav',JSON.stringify(favorites));toast('Added to favorites.');showLibrary('favorites')}));
+}
+$('#themeBtn').addEventListener('click',()=>{document.body.classList.toggle('light');if(document.body.classList.contains('light')){document.body.style.setProperty('--bg','#f3f5ff');document.body.style.setProperty('--panel','#fff');document.body.style.setProperty('--panel2','#fff');document.body.style.setProperty('--line','#d8def0');document.body.style.setProperty('--text','#17203d');document.body.style.setProperty('--muted','#596581');document.querySelectorAll('.panel,.result-card').forEach(x=>{x.style.background='#fff';x.style.color='#17203d'});toast('Light mode preview')}else{location.reload()}});
+</script>
+</body>
+</html>
